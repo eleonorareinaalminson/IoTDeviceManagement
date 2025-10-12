@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-
 namespace HMI.Services;
-
 public class ConfigurationService
 {
     public IConfiguration Configuration { get; }
@@ -19,8 +17,8 @@ public class ConfigurationService
     public string GetServiceBusConnectionString()
         => Configuration["ServiceBus:ConnectionString"] ?? throw new InvalidOperationException("Service Bus connection string not configured");
 
-    public string GetStatusTopic() => Configuration["ServiceBus:StatusTopic"] ?? "device-status";
-    public string GetCommandTopic() => Configuration["ServiceBus:CommandTopic"] ?? "device-commands";
+    public string GetStatusQueue() => Configuration["ServiceBus:StatusQueue"] ?? "device-status";
+    public string GetCommandQueue() => Configuration["ServiceBus:CommandQueue"] ?? "device-commands";
     public string GetAlarmQueue() => Configuration["ServiceBus:AlarmQueue"] ?? "device-alarms";
-    public string GetRestApiBaseUrl() => Configuration["RestApi:BaseUrl"] ?? "http://localhost:5000";
+    public string GetRestApiBaseUrl() => Configuration["ServiceBus:RestApi:BaseUrl"] ?? "http://localhost:5000";
 }
