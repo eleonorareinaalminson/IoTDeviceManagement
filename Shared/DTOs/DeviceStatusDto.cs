@@ -1,4 +1,6 @@
-﻿namespace Shared.DTOs;
+﻿using Shared.Enums;
+
+namespace Shared.DTOs;
 public class DeviceStatusDto
 {
     public string DeviceId { get; set; } = string.Empty;
