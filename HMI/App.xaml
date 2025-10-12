@@ -21,7 +21,7 @@
 
         <!-- Icon Styles -->
         <Style x:Key="IconText" TargetType="TextBlock">
-            <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+            <Setter Property="FontFamily" Value="{StaticResource fa-solid}"/>
             <Setter Property="FontSize" Value="24"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>

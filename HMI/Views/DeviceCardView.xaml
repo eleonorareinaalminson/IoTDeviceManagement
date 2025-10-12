@@ -30,7 +30,7 @@
                     Margin="0,0,20,0">
                 <Grid>
                     <!-- Fan Icon (Fläkt) -->
-                    <TextBlock FontFamily="{StaticResource FontAwesome}"
+                    <TextBlock FontFamily="{StaticResource fa-solid}"
                                Text="&#xf863;" 
                                FontSize="40"
                                Foreground="{StaticResource SecondaryColor}"
@@ -49,7 +49,7 @@
                     </TextBlock>
 
                     <!-- Lamp Icon (Lampa) -->
-                    <TextBlock FontFamily="{StaticResource FontAwesome}"
+                    <TextBlock FontFamily="{StaticResource fa-solid}"
                                Text="&#xf0eb;" 
                                FontSize="40"
                                Foreground="#F39C12"
@@ -68,7 +68,7 @@
                     </TextBlock>
 
                     <!-- Temperature Sensor Icon (Termometer) -->
-                    <TextBlock FontFamily="{StaticResource FontAwesome}"
+                    <TextBlock FontFamily="{StaticResource fa-solid}"
                                Text="&#xf2c9;" 
                                FontSize="40"
                                Foreground="#E74C3C"
@@ -87,7 +87,7 @@
                     </TextBlock>
 
                     <!-- Unknown/Default Icon -->
-                    <TextBlock FontFamily="{StaticResource FontAwesome}"
+                    <TextBlock FontFamily="{StaticResource fa-solid}"
                                Text="&#xf013;" 
                                FontSize="40"
                                Foreground="{StaticResource DarkGray}"
@@ -155,7 +155,7 @@
                         Width="100"
                         Margin="0,0,0,8">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock FontFamily="{StaticResource FontAwesome}"
+                        <TextBlock FontFamily="{StaticResource fa-solid}"
                                    Text="&#xf04b;" 
                                    FontSize="12"
                                    Margin="0,0,5,0"
@@ -171,7 +171,7 @@
                         Width="100"
                         Margin="0,0,0,8">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock FontFamily="{StaticResource FontAwesome}"
+                        <TextBlock FontFamily="{StaticResource fa-solid}"
                                    Text="&#xf04d;" 
                                    FontSize="12"
                                    Margin="0,0,5,0"
