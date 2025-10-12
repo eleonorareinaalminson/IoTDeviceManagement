@@ -150,3 +150,4 @@ public class DeviceCardViewModel : ObservableObject
             _ => State.ToString()
         };
     }
+}
