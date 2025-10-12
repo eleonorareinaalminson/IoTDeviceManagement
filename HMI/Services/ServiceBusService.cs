@@ -4,7 +4,6 @@ using Shared.DTOs;
 using System.Text.Json;
 
 namespace HMI.Services;
-
 public class ServiceBusService : IDeviceService, IAsyncDisposable
 {
     private readonly ConfigurationService _config;
@@ -28,13 +27,12 @@ public class ServiceBusService : IDeviceService, IAsyncDisposable
             var connectionString = _config.GetServiceBusConnectionString();
             _client = new ServiceBusClient(connectionString);
 
-            // Sender for commands
-            _commandSender = _client.CreateSender(_config.GetCommandTopic());
+            // Sender för commands (Queue)
+            _commandSender = _client.CreateSender(_config.Configuration["ServiceBus:CommandQueue"] ?? "device-commands");
 
-            // Processor for status updates
+            // Processor för status updates (Queue)
             _statusProcessor = _client.CreateProcessor(
-                _config.GetStatusTopic(),
-                _config.Configuration["ServiceBus:HmiSubscription"] ?? "hmi-updates",
+                _config.Configuration["ServiceBus:StatusQueue"] ?? "device-status",
                 new ServiceBusProcessorOptions
                 {
                     AutoCompleteMessages = false,
@@ -44,9 +42,9 @@ public class ServiceBusService : IDeviceService, IAsyncDisposable
             _statusProcessor.ProcessMessageAsync += OnStatusMessageAsync;
             _statusProcessor.ProcessErrorAsync += OnErrorAsync;
 
-            // Processor for alarms
+            // Processor för alarms (Queue)
             _alarmProcessor = _client.CreateProcessor(
-                _config.GetAlarmQueue(),
+                _config.Configuration["ServiceBus:AlarmQueue"] ?? "device-alarms",
                 new ServiceBusProcessorOptions
                 {
                     AutoCompleteMessages = false,
@@ -126,7 +124,7 @@ public class ServiceBusService : IDeviceService, IAsyncDisposable
         var messageBody = JsonSerializer.Serialize(command);
         var message = new ServiceBusMessage(messageBody)
         {
-            Subject = deviceId,
+            Subject = deviceId, // Används för filtrering på device-sidan
             ContentType = "application/json"
         };
 
@@ -135,7 +133,6 @@ public class ServiceBusService : IDeviceService, IAsyncDisposable
 
     public async Task<IEnumerable<DeviceModel>> GetDevicesAsync()
     {
-        // Load devices from configuration
         var devices = new List<DeviceModel>();
         var deviceConfigs = _config.Configuration.GetSection("Devices").GetChildren();
 
@@ -157,7 +154,6 @@ public class ServiceBusService : IDeviceService, IAsyncDisposable
 
     public Task AcknowledgeAlarmAsync(string alarmId)
     {
-        // TODO: Implement alarm acknowledgment logic
         return Task.CompletedTask;
     }
 
