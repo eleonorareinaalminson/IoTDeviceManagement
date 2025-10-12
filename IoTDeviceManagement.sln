@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMI", "HMI\HMI.csproj", "{84E341A2-81EF-42A7-9D6B-BF85D6EBCEF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{35E33099-5E81-415E-83E3-1F2EDBA33DF9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84E341A2-81EF-42A7-9D6B-BF85D6EBCEF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84E341A2-81EF-42A7-9D6B-BF85D6EBCEF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84E341A2-81EF-42A7-9D6B-BF85D6EBCEF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84E341A2-81EF-42A7-9D6B-BF85D6EBCEF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35E33099-5E81-415E-83E3-1F2EDBA33DF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35E33099-5E81-415E-83E3-1F2EDBA33DF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35E33099-5E81-415E-83E3-1F2EDBA33DF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35E33099-5E81-415E-83E3-1F2EDBA33DF9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D438BE28-7B99-4CA1-95C0-C5DA566AD60C}
+	EndGlobalSection
+EndGlobal
