@@ -181,14 +181,18 @@
                     </StackPanel>
                 </Button>
 
-                <Slider Value="{Binding CurrentValue}" 
+                <!-- FIXED SLIDER - OneWay binding + MouseUp event -->
+                <Slider x:Name="SpeedSlider"
+                        Value="{Binding CurrentValue, Mode=OneWay}" 
                         Minimum="0" 
                         Maximum="10" 
                         TickFrequency="0.5" 
                         IsSnapToTickEnabled="True"
                         Width="100"
                         Margin="0,5,0,0"
-                        IsEnabled="{Binding IsRunning}"/>
+                        IsEnabled="{Binding IsRunning}"
+                        PreviewMouseUp="SpeedSlider_MouseUp"
+                        ToolTip="{Binding CurrentValue, StringFormat='Speed: {0:F1}'}"/>
             </StackPanel>
         </Grid>
     </Border>

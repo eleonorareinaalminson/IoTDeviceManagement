@@ -122,13 +122,18 @@ public class ServiceBusService : IDeviceService, IAsyncDisposable
         command.Timestamp = DateTime.UtcNow;
 
         var messageBody = JsonSerializer.Serialize(command);
+
+        System.Diagnostics.Debug.WriteLine($"Sending command to {deviceId}: {messageBody}");
+
         var message = new ServiceBusMessage(messageBody)
         {
-            Subject = deviceId, // Används för filtrering på device-sidan
+            Subject = deviceId,  // VIKTIGT för filtrering!
             ContentType = "application/json"
         };
 
         await _commandSender.SendMessageAsync(message);
+
+        System.Diagnostics.Debug.WriteLine($"Command sent successfully to queue");
     }
 
     public async Task<IEnumerable<DeviceModel>> GetDevicesAsync()

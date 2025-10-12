@@ -131,8 +131,11 @@ public class DeviceCardViewModel : ObservableObject
     {
         if (!value.HasValue) return;
 
+        System.Diagnostics.Debug.WriteLine($"Setting value to: {value.Value}");
+
         var command = new DeviceCommandDto
         {
+            DeviceId = DeviceId, 
             Action = Type switch
             {
                 DeviceType.Fan => "SetSpeed",
@@ -140,12 +143,20 @@ public class DeviceCardViewModel : ObservableObject
                 _ => "SetValue"
             },
             Parameters = new Dictionary<string, object>
-            {
-                { "Value", value.Value }
-            }
+        {
+            { "Value", value.Value }
+        }
         };
 
-        await _deviceService.SendCommandAsync(DeviceId, command);
+        try
+        {
+            await _deviceService.SendCommandAsync(DeviceId, command);
+            System.Diagnostics.Debug.WriteLine($"Command sent successfully: {command.Action}");
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Failed to send command: {ex.Message}");
+        }
     }
 
     private void UpdateStatusText()
