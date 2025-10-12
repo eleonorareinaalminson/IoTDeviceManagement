@@ -82,28 +82,23 @@ public class DeviceCardViewModel : ObservableObject
 
         try
         {
-            // Hjälpmetod för att extrahera värden från JsonElement eller direkt objekt
             double GetDoubleValue(object obj)
             {
                 if (obj is System.Text.Json.JsonElement jsonElement)
                 {
-                    // JsonElement kan vara olika typer
                     if (jsonElement.ValueKind == System.Text.Json.JsonValueKind.Number)
                     {
                         return jsonElement.GetDouble();
                     }
                     else if (jsonElement.ValueKind == System.Text.Json.JsonValueKind.String)
                     {
-                        // Om det är en sträng, parse med InvariantCulture
                         return double.Parse(jsonElement.GetString()!, System.Globalization.CultureInfo.InvariantCulture);
                     }
                 }
 
-                // Direkt konvertering med InvariantCulture
                 return Convert.ToDouble(obj, System.Globalization.CultureInfo.InvariantCulture);
             }
 
-            // Uppdatera properties baserat på device type
             if (status.Properties.TryGetValue("Speed", out var speed))
             {
                 CurrentValue = GetDoubleValue(speed);
@@ -157,7 +152,7 @@ public class DeviceCardViewModel : ObservableObject
 
         var command = new DeviceCommandDto
         {
-            DeviceId = DeviceId, 
+            DeviceId = DeviceId,
             Action = Type switch
             {
                 DeviceType.Fan => "SetSpeed",
@@ -166,7 +161,7 @@ public class DeviceCardViewModel : ObservableObject
             },
             Parameters = new Dictionary<string, object>
         {
-            { "Value", value.Value }
+            { "Value", value.Value.ToString(System.Globalization.CultureInfo.InvariantCulture) }
         }
         };
 
