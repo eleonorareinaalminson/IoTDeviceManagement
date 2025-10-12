@@ -28,15 +28,25 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="0">
-                    <TextBlock Text="IoT Device Management System" 
-                               FontSize="24" 
-                               FontWeight="Bold" 
-                               Foreground="White"/>
-                    <TextBlock Text="Human Machine Interface (HMI)" 
-                               FontSize="14" 
-                               Foreground="#BDC3C7" 
-                               Margin="0,5,0,0"/>
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <!-- Logo Icon -->
+                    <TextBlock FontFamily="{StaticResource FontAwesome}"
+                               Text="&#xf0c0;" 
+                               FontSize="32"
+                               Foreground="White"
+                               Margin="0,0,15,0"
+                               VerticalAlignment="Center"/>
+
+                    <StackPanel>
+                        <TextBlock Text="IoT Device Management System" 
+                                   FontSize="24" 
+                                   FontWeight="Bold" 
+                                   Foreground="White"/>
+                        <TextBlock Text="Human Machine Interface (HMI)" 
+                                   FontSize="14" 
+                                   Foreground="#BDC3C7" 
+                                   Margin="0,5,0,0"/>
+                    </StackPanel>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" 
@@ -48,11 +58,23 @@
                              Margin="0,0,10,0"/>
                     <TextBlock Text="{Binding StatusMessage}" 
                                Foreground="White" 
-                               FontSize="14"/>
-                    <Button Content="🔄 Refresh" 
-                            Command="{Binding RefreshDevicesCommand}"
+                               FontSize="14"
+                               Margin="0,0,15,0"/>
+
+                    <!-- Refresh Button med Icon -->
+                    <Button Command="{Binding RefreshDevicesCommand}"
                             Style="{StaticResource PrimaryButton}"
-                            Margin="20,0,0,0"/>
+                            Padding="10,5">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="{StaticResource FontAwesome}"
+                                       Text="&#xf021;" 
+                                       FontSize="14"
+                                       Margin="0,0,8,0"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock Text="Refresh" 
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
             </Grid>
         </Border>
@@ -74,12 +96,20 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" 
-                               Text="Connected Devices" 
-                               FontSize="20" 
-                               FontWeight="Bold" 
-                               Foreground="{StaticResource PrimaryColor}"
-                               Margin="0,0,0,15"/>
+                    <!-- Header med Icon -->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+                        <TextBlock FontFamily="{StaticResource FontAwesome}"
+                                   Text="&#xf233;" 
+                                   FontSize="20"
+                                   Foreground="{StaticResource PrimaryColor}"
+                                   Margin="0,0,10,0"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Text="Connected Devices" 
+                                   FontSize="20" 
+                                   FontWeight="Bold" 
+                                   Foreground="{StaticResource PrimaryColor}"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
 
                     <ScrollViewer Grid.Row="1" 
                                   VerticalScrollBarVisibility="Auto">
@@ -104,32 +134,40 @@
 
                 <!-- Alarms Section -->
                 <Border Grid.Row="0" 
-                        Style="{StaticResource Card}" 
-                        Margin="10,0,0,10">
+        Style="{StaticResource Card}" 
+        Margin="10,0,0,10">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="0" 
-                                   Text="⚠️ Active Alarms" 
-                                   FontSize="18" 
-                                   FontWeight="Bold" 
-                                   Foreground="{StaticResource DangerColor}"
-                                   Margin="0,0,0,10"/>
+                        <!-- Header med Icon -->
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                            <TextBlock FontFamily="{StaticResource FontAwesome}"
+                       Text="&#xf071;" 
+                       FontSize="18"
+                       Foreground="{StaticResource DangerColor}"
+                       Margin="0,0,8,0"
+                       VerticalAlignment="Center"/>
+                            <TextBlock Text="Active Alarms" 
+                       FontSize="18" 
+                       FontWeight="Bold" 
+                       Foreground="{StaticResource DangerColor}"
+                       VerticalAlignment="Center"/>
+                        </StackPanel>
 
                         <ScrollViewer Grid.Row="1" 
-                                      VerticalScrollBarVisibility="Auto">
+                      VerticalScrollBarVisibility="Auto">
                             <ItemsControl ItemsSource="{Binding Alarms}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Border Background="#FFF3E0" 
-                                                BorderBrush="{StaticResource WarningColor}" 
-                                                BorderThickness="1" 
-                                                CornerRadius="4" 
-                                                Padding="10" 
-                                                Margin="0,0,0,8">
+                                BorderBrush="{StaticResource WarningColor}" 
+                                BorderThickness="1" 
+                                CornerRadius="4" 
+                                Padding="10" 
+                                Margin="0,0,0,8">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*"/>
@@ -142,35 +180,51 @@
                                                 </Grid.RowDefinitions>
 
                                                 <TextBlock Grid.Row="0" Grid.Column="0"
-                                                           Text="{Binding DeviceName}" 
-                                                           FontWeight="Bold" 
-                                                           FontSize="13"/>
+                                           Text="{Binding DeviceName}" 
+                                           FontWeight="Bold" 
+                                           FontSize="13"/>
 
                                                 <TextBlock Grid.Row="0" Grid.Column="1"
-                                                           Text="{Binding Severity}" 
-                                                           FontSize="11" 
-                                                           Foreground="{StaticResource DangerColor}"
-                                                           FontWeight="Bold"/>
+                                           Text="{Binding Severity}" 
+                                           FontSize="11" 
+                                           Foreground="{StaticResource DangerColor}"
+                                           FontWeight="Bold"/>
 
                                                 <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                                                           Text="{Binding Message}" 
-                                                           TextWrapping="Wrap" 
-                                                           Margin="0,5,0,5"
-                                                           FontSize="12"/>
+                                           Text="{Binding Message}" 
+                                           TextWrapping="Wrap" 
+                                           Margin="0,5,0,5"
+                                           FontSize="12"/>
 
                                                 <TextBlock Grid.Row="2" Grid.Column="0"
-                                                           Text="{Binding Timestamp, StringFormat='HH:mm:ss'}" 
-                                                           FontSize="10" 
-                                                           Foreground="{StaticResource DarkGray}"/>
+                                           Text="{Binding Timestamp, StringFormat='HH:mm:ss'}" 
+                                           FontSize="10" 
+                                           Foreground="{StaticResource DarkGray}"/>
 
+                                                <!-- FIXAD ACK BUTTON -->
                                                 <Button Grid.Row="2" Grid.Column="1"
-                                                        Content="✓ ACK" 
-                                                        Command="{Binding DataContext.AcknowledgeAlarmCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                                        CommandParameter="{Binding}"
-                                                        Visibility="{Binding IsAcknowledged, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                                        Style="{StaticResource SuccessButton}"
-                                                        Padding="8,3"
-                                                        FontSize="10"/>
+                                        Command="{Binding DataContext.AcknowledgeAlarmCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                        CommandParameter="{Binding}"
+                                        Padding="8,3"
+                                        FontSize="10">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock FontFamily="{StaticResource FontAwesome}"
+                                                   Text="&#xf00c;" 
+                                                   FontSize="10"
+                                                   Margin="0,0,3,0"/>
+                                                        <TextBlock Text="ACK"/>
+                                                    </StackPanel>
+                                                    <Button.Style>
+                                                        <Style TargetType="Button" BasedOn="{StaticResource SuccessButton}">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding IsAcknowledged}" Value="True">
+                                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Button.Style>
+                                                </Button>
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
@@ -190,12 +244,20 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="0" 
-                                   Text="📊 Event History" 
-                                   FontSize="18" 
-                                   FontWeight="Bold" 
-                                   Foreground="{StaticResource PrimaryColor}"
-                                   Margin="0,0,0,10"/>
+                        <!-- Header med Icon -->
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                            <TextBlock FontFamily="{StaticResource FontAwesome}"
+                                       Text="&#xf080;" 
+                                       FontSize="18"
+                                       Foreground="{StaticResource PrimaryColor}"
+                                       Margin="0,0,8,0"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock Text="Event History" 
+                                       FontSize="18" 
+                                       FontWeight="Bold" 
+                                       Foreground="{StaticResource PrimaryColor}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
 
                         <ScrollViewer Grid.Row="1" 
                                       VerticalScrollBarVisibility="Auto">

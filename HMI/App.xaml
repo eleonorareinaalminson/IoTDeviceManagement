@@ -7,6 +7,9 @@
         <!-- Converters -->
         <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
 
+        <!-- FontAwesome -->
+        <FontFamily x:Key="FontAwesome">/Fonts/fa-solid-900.ttf#Font Awesome 6 Free Solid</FontFamily>
+
         <!-- Colors -->
         <SolidColorBrush x:Key="PrimaryColor" Color="#2C3E50"/>
         <SolidColorBrush x:Key="SecondaryColor" Color="#3498DB"/>
@@ -15,6 +18,14 @@
         <SolidColorBrush x:Key="DangerColor" Color="#E74C3C"/>
         <SolidColorBrush x:Key="LightGray" Color="#ECF0F1"/>
         <SolidColorBrush x:Key="DarkGray" Color="#7F8C8D"/>
+
+        <!-- Icon Styles -->
+        <Style x:Key="IconText" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
 
         <!-- Button Style -->
         <Style x:Key="PrimaryButton" TargetType="Button">
