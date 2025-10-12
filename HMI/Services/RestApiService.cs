@@ -1,6 +1,8 @@
 ﻿using Shared.DTOs;
 using System.Net.Http;
 using System.Net.Http.Json;
+using HMI.Models;
+
 
 
 namespace HMI.Services;

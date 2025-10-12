@@ -80,18 +80,26 @@ public class DeviceCardViewModel : ObservableObject
         State = status.State;
         LastSeen = status.Timestamp;
 
-        // Update properties based on device type
+        double GetDoubleValue(object obj)
+        {
+            if (obj is System.Text.Json.JsonElement jsonElement)
+            {
+                return jsonElement.GetDouble();
+            }
+            return Convert.ToDouble(obj);
+        }
+
         if (status.Properties.TryGetValue("Speed", out var speed))
         {
-            CurrentValue = Convert.ToDouble(speed);
+            CurrentValue = GetDoubleValue(speed);
         }
         else if (status.Properties.TryGetValue("Temperature", out var temp))
         {
-            CurrentValue = Convert.ToDouble(temp);
+            CurrentValue = GetDoubleValue(temp);
         }
         else if (status.Properties.TryGetValue("Brightness", out var brightness))
         {
-            CurrentValue = Convert.ToDouble(brightness);
+            CurrentValue = GetDoubleValue(brightness);
         }
 
         UpdateStatusText();
