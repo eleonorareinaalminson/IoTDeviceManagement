@@ -30,7 +30,7 @@
 
                 <StackPanel Grid.Column="0" Orientation="Horizontal">
                     <!-- Logo Icon -->
-                    <TextBlock FontFamily="{StaticResource FontAwesome}"
+                    <TextBlock FontFamily="{StaticResource fa-solid}"
                                Text="&#xf0c0;" 
                                FontSize="32"
                                Foreground="White"
@@ -66,7 +66,7 @@
                             Style="{StaticResource PrimaryButton}"
                             Padding="10,5">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock FontFamily="{StaticResource FontAwesome}"
+                            <TextBlock FontFamily="{StaticResource fa-solid}"
                                        Text="&#xf021;" 
                                        FontSize="14"
                                        Margin="0,0,8,0"
@@ -98,7 +98,7 @@
 
                     <!-- Header med Icon -->
                     <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
-                        <TextBlock FontFamily="{StaticResource FontAwesome}"
+                        <TextBlock FontFamily="{StaticResource fa-solid}"
                                    Text="&#xf233;" 
                                    FontSize="20"
                                    Foreground="{StaticResource PrimaryColor}"
@@ -144,7 +144,7 @@
 
                         <!-- Header med Icon -->
                         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-                            <TextBlock FontFamily="{StaticResource FontAwesome}"
+                            <TextBlock FontFamily="{StaticResource fa-solid}"
                        Text="&#xf071;" 
                        FontSize="18"
                        Foreground="{StaticResource DangerColor}"
@@ -208,7 +208,7 @@
                                         Padding="8,3"
                                         FontSize="10">
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock FontFamily="{StaticResource FontAwesome}"
+                                                        <TextBlock FontFamily="{StaticResource fa-solid}"
                                                    Text="&#xf00c;" 
                                                    FontSize="10"
                                                    Margin="0,0,3,0"/>
@@ -246,7 +246,7 @@
 
                         <!-- Header med Icon -->
                         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-                            <TextBlock FontFamily="{StaticResource FontAwesome}"
+                            <TextBlock FontFamily="{StaticResource fa-solid}"
                                        Text="&#xf080;" 
                                        FontSize="18"
                                        Foreground="{StaticResource PrimaryColor}"

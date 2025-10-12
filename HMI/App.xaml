@@ -8,8 +8,8 @@
         <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
 
         <!-- FontAwesome -->
-        <FontFamily x:Key="FontAwesome">/Fonts/fa-solid-900.ttf#Font Awesome 6 Free Solid</FontFamily>
-
+        <FontFamily x:Key="fa-solid">/Fonts/fa-solid-900.ttf#Font Awesome 6 Pro Solid</FontFamily>
+        
         <!-- Colors -->
         <SolidColorBrush x:Key="PrimaryColor" Color="#2C3E50"/>
         <SolidColorBrush x:Key="SecondaryColor" Color="#3498DB"/>
@@ -21,7 +21,7 @@
 
         <!-- Icon Styles -->
         <Style x:Key="IconText" TargetType="TextBlock">
-            <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+            <Setter Property="FontFamily" Value="{StaticResource fa-solid}"/>
             <Setter Property="FontSize" Value="24"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
