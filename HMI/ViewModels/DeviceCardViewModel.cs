@@ -80,29 +80,51 @@ public class DeviceCardViewModel : ObservableObject
         State = status.State;
         LastSeen = status.Timestamp;
 
-        double GetDoubleValue(object obj)
+        try
         {
-            if (obj is System.Text.Json.JsonElement jsonElement)
+            // Hjälpmetod för att extrahera värden från JsonElement eller direkt objekt
+            double GetDoubleValue(object obj)
             {
-                return jsonElement.GetDouble();
+                if (obj is System.Text.Json.JsonElement jsonElement)
+                {
+                    // JsonElement kan vara olika typer
+                    if (jsonElement.ValueKind == System.Text.Json.JsonValueKind.Number)
+                    {
+                        return jsonElement.GetDouble();
+                    }
+                    else if (jsonElement.ValueKind == System.Text.Json.JsonValueKind.String)
+                    {
+                        // Om det är en sträng, parse med InvariantCulture
+                        return double.Parse(jsonElement.GetString()!, System.Globalization.CultureInfo.InvariantCulture);
+                    }
+                }
+
+                // Direkt konvertering med InvariantCulture
+                return Convert.ToDouble(obj, System.Globalization.CultureInfo.InvariantCulture);
             }
-            return Convert.ToDouble(obj);
-        }
 
-        if (status.Properties.TryGetValue("Speed", out var speed))
-        {
-            CurrentValue = GetDoubleValue(speed);
-        }
-        else if (status.Properties.TryGetValue("Temperature", out var temp))
-        {
-            CurrentValue = GetDoubleValue(temp);
-        }
-        else if (status.Properties.TryGetValue("Brightness", out var brightness))
-        {
-            CurrentValue = GetDoubleValue(brightness);
-        }
+            // Uppdatera properties baserat på device type
+            if (status.Properties.TryGetValue("Speed", out var speed))
+            {
+                CurrentValue = GetDoubleValue(speed);
+            }
+            else if (status.Properties.TryGetValue("Temperature", out var temp))
+            {
+                CurrentValue = GetDoubleValue(temp);
+            }
+            else if (status.Properties.TryGetValue("Brightness", out var brightness))
+            {
+                CurrentValue = GetDoubleValue(brightness);
+            }
 
-        UpdateStatusText();
+            UpdateStatusText();
+
+            System.Diagnostics.Debug.WriteLine($"✅ Status updated: {StatusText}");
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"❌ Error updating status: {ex.Message}");
+        }
     }
 
     private async void StartDevice()
