@@ -3,8 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:enums="clr-namespace:Shared.Enums;assembly=Shared"
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="600">
+
 
     <Border Background="White" 
             BorderBrush="{StaticResource LightGray}" 
@@ -18,7 +20,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Device Icon -->
+            <!-- Device Icon med FontAwesome -->
             <Border Grid.Column="0" 
                     Width="80" 
                     Height="80" 
@@ -26,10 +28,83 @@
                     CornerRadius="40" 
                     VerticalAlignment="Center"
                     Margin="0,0,20,0">
-                <TextBlock Text="{Binding Type, StringFormat='🔧 {0}'}" 
-                           FontSize="32" 
-                           HorizontalAlignment="Center" 
-                           VerticalAlignment="Center"/>
+                <Grid>
+                    <!-- Fan Icon (Fläkt) -->
+                    <TextBlock FontFamily="{StaticResource FontAwesome}"
+                               Text="&#xf863;" 
+                               FontSize="40"
+                               Foreground="{StaticResource SecondaryColor}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Type}" Value="{x:Static enums:DeviceType.Fan}">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <!-- Lamp Icon (Lampa) -->
+                    <TextBlock FontFamily="{StaticResource FontAwesome}"
+                               Text="&#xf0eb;" 
+                               FontSize="40"
+                               Foreground="#F39C12"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Type}" Value="{x:Static enums:DeviceType.Lamp}">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <!-- Temperature Sensor Icon (Termometer) -->
+                    <TextBlock FontFamily="{StaticResource FontAwesome}"
+                               Text="&#xf2c9;" 
+                               FontSize="40"
+                               Foreground="#E74C3C"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Type}" Value="{x:Static enums:DeviceType.TemperatureSensor}">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <!-- Unknown/Default Icon -->
+                    <TextBlock FontFamily="{StaticResource FontAwesome}"
+                               Text="&#xf013;" 
+                               FontSize="40"
+                               Foreground="{StaticResource DarkGray}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Type}" Value="{x:Static enums:DeviceType.Unknown}">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
             </Border>
 
             <!-- Device Info -->
@@ -74,17 +149,37 @@
                         VerticalAlignment="Center" 
                         Margin="20,0,0,0">
 
-                <Button Content="▶ START" 
-                        Command="{Binding StartCommand}"
+                <!-- START Button med Icon -->
+                <Button Command="{Binding StartCommand}"
                         Style="{StaticResource SuccessButton}"
                         Width="100"
-                        Margin="0,0,0,8"/>
+                        Margin="0,0,0,8">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontFamily="{StaticResource FontAwesome}"
+                                   Text="&#xf04b;" 
+                                   FontSize="12"
+                                   Margin="0,0,5,0"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Text="START" 
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
 
-                <Button Content="⏹ STOP" 
-                        Command="{Binding StopCommand}"
+                <!-- STOP Button med Icon -->
+                <Button Command="{Binding StopCommand}"
                         Style="{StaticResource DangerButton}"
                         Width="100"
-                        Margin="0,0,0,8"/>
+                        Margin="0,0,0,8">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontFamily="{StaticResource FontAwesome}"
+                                   Text="&#xf04d;" 
+                                   FontSize="12"
+                                   Margin="0,0,5,0"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Text="STOP" 
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
 
                 <Slider Value="{Binding CurrentValue}" 
                         Minimum="0" 
