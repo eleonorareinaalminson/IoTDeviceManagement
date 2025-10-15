@@ -161,14 +161,23 @@ public class DeviceCardViewModel : ObservableObject
             },
             Parameters = new Dictionary<string, object>
         {
-            { "Value", value.Value.ToString(System.Globalization.CultureInfo.InvariantCulture) }
+            { "Value", value.Value }  // Skicka som double, inte string
         }
         };
 
         try
         {
-            await _deviceService.SendCommandAsync(DeviceId, command);
-            System.Diagnostics.Debug.WriteLine($"Command sent successfully: {command.Action}");
+            var success = await _restApiService.SendCommandAsync(DeviceId, command);
+
+            if (success)
+            {
+                System.Diagnostics.Debug.WriteLine($"REST Command sent: {command.Action}");
+            }
+            else
+            {
+                await _deviceService.SendCommandAsync(DeviceId, command);
+                System.Diagnostics.Debug.WriteLine($"Service Bus Command sent: {command.Action}");
+            }
         }
         catch (Exception ex)
         {
