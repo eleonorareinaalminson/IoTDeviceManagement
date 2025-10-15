@@ -5,9 +5,9 @@ using Shared.DTOs;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace HMI.ViewModels;
-
 
 public class MainViewModel : ObservableObject
 {
@@ -15,6 +15,7 @@ public class MainViewModel : ObservableObject
     private readonly RestApiService _restApiService;
     private string _statusMessage = "Initializing...";
     private bool _isConnected;
+    private DispatcherTimer? _restPollingTimer;
 
     public ObservableCollection<DeviceCardViewModel> Devices { get; }
     public ObservableCollection<AlarmModel> Alarms { get; }
@@ -47,11 +48,9 @@ public class MainViewModel : ObservableObject
         RefreshDevicesCommand = new RelayCommand(_ => RefreshDevices());
         AcknowledgeAlarmCommand = new RelayCommand<AlarmModel>(AcknowledgeAlarm);
 
-        // Subscribe to events
         _deviceService.StatusReceived += OnStatusReceived;
         _deviceService.AlarmReceived += OnAlarmReceived;
 
-        // Initialize
         InitializeAsync();
     }
 
@@ -59,18 +58,54 @@ public class MainViewModel : ObservableObject
     {
         try
         {
-            await _deviceService.InitializeAsync();
             await LoadDevices();
 
+            StartRestPolling();
+
+            try
+            {
+                await _deviceService.InitializeAsync();
+                StatusMessage = "Connected to REST + Service Bus";
+            }
+            catch
+            {
+                StatusMessage = "Connected via REST API";
+            }
+
             IsConnected = true;
-            StatusMessage = "Connected to Azure Service Bus";
         }
         catch (Exception ex)
         {
             IsConnected = false;
             StatusMessage = $"Connection failed: {ex.Message}";
-            MessageBox.Show($"Failed to connect to services: {ex.Message}", "Connection Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"Failed to connect: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+    }
+
+    private void StartRestPolling()
+    {
+        _restPollingTimer = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromSeconds(2)
+        };
+
+        _restPollingTimer.Tick += async (s, e) =>
+        {
+            foreach (var deviceVm in Devices)
+            {
+                var status = await _restApiService.GetDeviceStatusAsync(deviceVm.DeviceId);
+                if (status != null)
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        deviceVm.UpdateStatus(status);
+                    });
+                }
+            }
+        };
+
+        _restPollingTimer.Start();
+        System.Diagnostics.Debug.WriteLine("REST polling started (every 2 seconds)");
     }
 
     private async Task LoadDevices()
@@ -105,7 +140,6 @@ public class MainViewModel : ObservableObject
                 Details = string.Join(", ", status.Properties.Select(p => $"{p.Key}={p.Value}"))
             });
 
-            // Keep only last 100 entries
             while (History.Count > 100)
             {
                 History.RemoveAt(History.Count - 1);
