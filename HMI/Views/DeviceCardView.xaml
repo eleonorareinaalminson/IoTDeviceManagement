@@ -20,7 +20,6 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Device Icon med FontAwesome -->
             <Border Grid.Column="0" 
                     Width="80" 
                     Height="80" 
@@ -29,7 +28,6 @@
                     VerticalAlignment="Center"
                     Margin="0,0,20,0">
                 <Grid>
-                    <!-- Fan Icon (Fläkt) -->
                     <TextBlock FontFamily="{StaticResource fa-solid}"
                                Text="&#xf863;" 
                                FontSize="40"
@@ -48,7 +46,6 @@
                         </TextBlock.Style>
                     </TextBlock>
 
-                    <!-- Lamp Icon (Lampa) -->
                     <TextBlock FontFamily="{StaticResource fa-solid}"
                                Text="&#xf0eb;" 
                                FontSize="40"
@@ -67,7 +64,6 @@
                         </TextBlock.Style>
                     </TextBlock>
 
-                    <!-- Temperature Sensor Icon (Termometer) -->
                     <TextBlock FontFamily="{StaticResource fa-solid}"
                                Text="&#xf2c9;" 
                                FontSize="40"
@@ -86,7 +82,6 @@
                         </TextBlock.Style>
                     </TextBlock>
 
-                    <!-- Unknown/Default Icon -->
                     <TextBlock FontFamily="{StaticResource fa-solid}"
                                Text="&#xf013;" 
                                FontSize="40"
@@ -107,7 +102,6 @@
                 </Grid>
             </Border>
 
-            <!-- Device Info -->
             <StackPanel Grid.Column="1" 
                         VerticalAlignment="Center">
                 <TextBlock Text="{Binding Name}" 
@@ -144,12 +138,10 @@
                            Margin="0,3,0,0"/>
             </StackPanel>
 
-            <!-- Controls -->
             <StackPanel Grid.Column="2" 
                         VerticalAlignment="Center" 
                         Margin="20,0,0,0">
 
-                <!-- START Button med Icon -->
                 <Button Command="{Binding StartCommand}"
                         Style="{StaticResource SuccessButton}"
                         Width="100"
@@ -165,7 +157,6 @@
                     </StackPanel>
                 </Button>
 
-                <!-- STOP Button med Icon -->
                 <Button Command="{Binding StopCommand}"
                         Style="{StaticResource DangerButton}"
                         Width="100"
@@ -181,18 +172,17 @@
                     </StackPanel>
                 </Button>
 
-                <!-- FIXED SLIDER - OneWay binding + MouseUp event -->
                 <Slider x:Name="SpeedSlider"
-                        Value="{Binding CurrentValue, Mode=OneWay}" 
-                        Minimum="0" 
-                        Maximum="10" 
-                        TickFrequency="0.5" 
-                        IsSnapToTickEnabled="True"
-                        Width="100"
-                        Margin="0,5,0,0"
-                        IsEnabled="{Binding IsRunning}"
-                        PreviewMouseUp="SpeedSlider_MouseUp"
-                        ToolTip="{Binding CurrentValue, StringFormat='Speed: {0:F1}'}"/>
+                    Value="{Binding CurrentValue, Mode=OneWay}" 
+                    Minimum="0.1" 
+                    Maximum="3.0" 
+                    TickFrequency="0.1" 
+                    IsSnapToTickEnabled="True"
+                    Width="100"
+                    Margin="0,5,0,0"
+                    IsEnabled="{Binding IsRunning}"
+                    PreviewMouseUp="SpeedSlider_MouseUp"
+                    ToolTip="{Binding CurrentValue, StringFormat='Speed: {0:F1}'}"/>
             </StackPanel>
         </Grid>
     </Border>

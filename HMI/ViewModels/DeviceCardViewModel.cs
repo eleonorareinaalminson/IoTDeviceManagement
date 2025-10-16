@@ -5,9 +5,7 @@ using Shared.DTOs;
 using Shared.Enums;
 using System.Windows.Input;
 
-
 namespace HMI.ViewModels;
-
 public class DeviceCardViewModel : ObservableObject
 {
     private readonly IDeviceService _deviceService;
